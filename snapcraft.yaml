@@ -47,13 +47,7 @@ apps:
 
 parts:
   desktop-gnome-platform:
-    source-subdir: gtk
-    plugin: make
-    make-parameters: ["FLAVOR=gtk3"]
-    build-packages:
-      - libgtk-3-dev
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-branch: master
+    after: [desktop-gtk3]
     install: mkdir -p $SNAPCRAFT_PART_INSTALL/gnome-platform
 
   gnome-sudoku:
