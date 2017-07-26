@@ -46,11 +46,8 @@ apps:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/lib/gnome-sudoku
 
 parts:
-  desktop-gnome-platform:
-    after: [desktop-gtk3]
-    install: mkdir -p $SNAPCRAFT_PART_INSTALL/gnome-platform
-
   gnome-sudoku:
+    after: [desktop-gnome-platform]
     source: https://git.gnome.org/browse/gnome-sudoku
     source-type: git
     #source-branch: master
