@@ -35,9 +35,7 @@ apps:
   gnome-sudoku:
     command: desktop-launch gnome-sudoku
     plugs:
-      - network
       - x11
-      - home
       - gsettings
       - unity7
     desktop: usr/share/applications/gnome-sudoku.desktop
