@@ -1,5 +1,5 @@
 name: gnome-sudoku
-version: 3.24.0
+version: 3.26.0
 summary: Test your logic skills in this number grid puzzle
 description: |
   Play the popular Japanese logic game. GNOME Sudoku is a must-install for
@@ -19,10 +19,10 @@ grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
 
 plugs:
-    gnome-3-24-platform:
+    gnome-3-26-1604:
       interface: content
       target: $SNAP/gnome-platform
-      default-provider: gnome-3-24:gnome-3-24-platform
+      default-provider: gnome-3-26-1604:gnome-3-26-1604
 
 slots:
   # for GtkApplication registration
@@ -35,9 +35,11 @@ apps:
   gnome-sudoku:
     command: desktop-launch gnome-sudoku
     plugs:
-      - x11
+      - desktop
+      - desktop-legacy
       - gsettings
       - unity7
+      - wayland
     desktop: usr/share/applications/gnome-sudoku.desktop
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
@@ -48,8 +50,7 @@ parts:
     after: [desktop-gnome-platform]
     source: https://git.gnome.org/browse/gnome-sudoku
     source-type: git
-    #source-branch: master
-    source-tag: 3.24.0
+    source-tag: 3.26.0
     plugin: autotools
     # workaround the issue described in https://launchpad.net/bugs/1583250
     configflags: [--prefix=/snap/gnome-sudoku/current/usr]
@@ -75,7 +76,6 @@ parts:
       - libqqwing-dev
       - valac
       - yelp-tools
-
 
   # workaround snapcraft trying to outsmart us by copying ldd listed libraries
   workaround:
