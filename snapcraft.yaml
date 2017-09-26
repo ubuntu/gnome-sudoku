@@ -62,6 +62,7 @@ parts:
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp ../src/data/icons/hicolor/48x48/gnome-sudoku.png $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp data/gnome-sudoku.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
+    build-attributes: ['no-system-libraries']
     build-packages:
       - desktop-file-utils
       - gettext
@@ -78,7 +79,11 @@ parts:
       - yelp-tools
 
   # workaround snapcraft trying to outsmart us by copying ldd listed libraries
-  workaround:
+  libraries:
     plugin: nil
+    stage-packages:
+      - libqqwing2v5
+      - libgee-0.8-2
     prime:
-      - "-*"
+      - "usr/lib/*/libqqwing*"
+      - "usr/lib/*/libgee*"
