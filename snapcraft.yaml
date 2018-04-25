@@ -19,10 +19,22 @@ grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
 
 plugs:
-    gnome-3-26-1604:
-      interface: content
-      target: $SNAP/gnome-platform
-      default-provider: gnome-3-26-1604
+  gnome-3-26-1604:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-3-26-1604
+  gtk3-themes:
+    interface: content
+    target: $SNAP/share/themes
+    default-provider: gtk-common-themes
+  icon-themes:
+    interface: content
+    target: $SNAP/share/icons
+    default-provider: gtk-common-themes
+  sound-themes:
+    interface: content
+    target: $SNAP/share/sounds
+    default-provider: gtk-common-themes
 
 slots:
   # for GtkApplication registration
