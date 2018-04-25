@@ -25,15 +25,15 @@ plugs:
     default-provider: gnome-3-26-1604
   gtk3-themes:
     interface: content
-    target: $SNAP/share/themes
+    target: $SNAP/usr/share/themes
     default-provider: gtk-common-themes
   icon-themes:
     interface: content
-    target: $SNAP/share/icons
+    target: $SNAP/usr/share/icons
     default-provider: gtk-common-themes
   sound-themes:
     interface: content
-    target: $SNAP/share/sounds
+    target: $SNAP/usr/share/sounds
     default-provider: gtk-common-themes
 
 slots:
