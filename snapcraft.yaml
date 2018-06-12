@@ -23,17 +23,17 @@ plugs:
     interface: content
     target: $SNAP/gnome-platform
     default-provider: gnome-3-26-1604
-  gtk3-themes:
+  gtk-3-themes:
     interface: content
-    target: $SNAP/usr/share/themes
+    target: $SNAP/data-dir/themes
     default-provider: gtk-common-themes
   icon-themes:
     interface: content
-    target: $SNAP/usr/share/icons
+    target: $SNAP/data-dir/icons
     default-provider: gtk-common-themes
   sound-themes:
     interface: content
-    target: $SNAP/usr/share/sounds
+    target: $SNAP/data-dir/sounds
     default-provider: gtk-common-themes
 
 slots:
@@ -65,13 +65,12 @@ parts:
     source-type: git
     source-tag: 3.26.0
     plugin: autotools
-    # workaround the issue described in https://launchpad.net/bugs/1583250
     configflags: [--prefix=/snap/gnome-sudoku/current/usr]
     organize:
       snap/gnome-sudoku/current/usr: usr
-    prepare:
+    override-build: |
       sed -i.bak -e 's|=gnome-sudoku$|=${SNAP}/meta/gui/gnome-sudoku.png|g' data/gnome-sudoku.desktop.in
-    install: |
+      snapcraftctl build
       mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp ../src/data/icons/hicolor/48x48/gnome-sudoku.png $SNAPCRAFT_PART_INSTALL/meta/gui/
       cp data/gnome-sudoku.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
