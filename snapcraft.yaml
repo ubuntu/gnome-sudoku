@@ -61,7 +61,7 @@ apps:
 parts:
   gnome-sudoku:
     after: [desktop-gnome-platform]
-    source: https://git.gnome.org/browse/gnome-sudoku
+    source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
     source-tag: 3.26.0
     plugin: autotools
