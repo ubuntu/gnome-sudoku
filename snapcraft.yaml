@@ -1,5 +1,5 @@
 name: gnome-sudoku
-version: 3.26.0
+adopt-info: gnome-sudoku
 summary: Test your logic skills in this number grid puzzle
 description: |
   Play the popular Japanese logic game. GNOME Sudoku is a must-install for
@@ -17,12 +17,13 @@ description: |
 
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
+base: core18
 
 plugs:
-  gnome-3-26-1604:
+  gnome-3-28-1804:
     interface: content
     target: $SNAP/gnome-platform
-    default-provider: gnome-3-26-1604
+    default-provider: gnome-3-28-1804
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
@@ -41,7 +42,7 @@ slots:
   gnome-sudoku:
     interface: dbus
     bus: session
-    name: org.gnome.sudoku
+    name: org.gnome.Sudoku
 
 apps:
   gnome-sudoku:
@@ -53,28 +54,31 @@ apps:
       - pulseaudio
       - unity7
       - wayland
-    desktop: usr/share/applications/gnome-sudoku.desktop
+    desktop: usr/share/applications/org.gnome.Sudoku.desktop
     environment:
       GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/lib/gnome-sudoku
 
 parts:
+  desktop-gnome-platform:
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: gtk
+    plugin: make
+    make-parameters: ["FLAVOR=gtk3"]
+    build-packages:
+      - libgtk-3-dev
+    override-build: |
+      snapcraftctl build
+      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
   gnome-sudoku:
     after: [desktop-gnome-platform]
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
-    source-tag: 3.26.0
-    plugin: autotools
-    configflags: [--prefix=/snap/gnome-sudoku/current/usr]
+    source-tag: 3.32.0
+    plugin: meson
+    meson-parameters: [--prefix=/usr]
     organize:
       snap/gnome-sudoku/current/usr: usr
-    override-build: |
-      sed -i.bak -e 's|=gnome-sudoku$|=${SNAP}/meta/gui/gnome-sudoku.png|g' data/gnome-sudoku.desktop.in
-      snapcraftctl build
-      mkdir -p $SNAPCRAFT_PART_INSTALL/meta/gui/
-      cp ../src/data/icons/hicolor/48x48/gnome-sudoku.png $SNAPCRAFT_PART_INSTALL/meta/gui/
-      cp data/gnome-sudoku.desktop $SNAPCRAFT_PART_INSTALL/meta/gui/
-    build-attributes: ['no-system-libraries']
     build-packages:
       - desktop-file-utils
       - gettext
@@ -89,6 +93,9 @@ parts:
       - libqqwing-dev
       - valac
       - yelp-tools
+    override-pull: |
+      snapcraftctl pull
+      snapcraftctl set-version $(git describe --tags --abbrev=10)
 
   # workaround snapcraft trying to outsmart us by copying ldd listed libraries
   libraries:
