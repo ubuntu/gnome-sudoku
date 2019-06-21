@@ -96,6 +96,7 @@ parts:
     override-pull: |
       snapcraftctl pull
       snapcraftctl set-version $(git describe --tags --abbrev=10)
+      sed -i.bak -e 's|symlink_media: true|symlink_media: false|g' help/meson.build
 
   # workaround snapcraft trying to outsmart us by copying ldd listed libraries
   libraries:
