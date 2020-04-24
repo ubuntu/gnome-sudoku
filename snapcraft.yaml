@@ -74,7 +74,7 @@ parts:
     after: [desktop-gnome-platform]
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
-    source-tag: 3.32.0
+    source-branch: gnome-3-34
     plugin: meson
     meson-parameters: [--prefix=/usr]
     organize:
