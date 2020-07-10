@@ -84,7 +84,6 @@ parts:
       - gettext
       - gnome-common
       - appstream-util
-      - gnome-pkg-tools
       - intltool
       - libgee-0.8-dev
       - libjson-glib-dev
