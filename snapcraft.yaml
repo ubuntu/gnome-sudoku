@@ -17,25 +17,8 @@ description: |
 
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict
-base: core18
+base: core20
 
-plugs:
-  gnome-3-28-1804:
-    interface: content
-    target: $SNAP/gnome-platform
-    default-provider: gnome-3-28-1804
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes
 
 slots:
   # for GtkApplication registration
@@ -46,51 +29,23 @@ slots:
 
 apps:
   gnome-sudoku:
-    command: desktop-launch gnome-sudoku
+    extensions: [ gnome-3-38 ]
+    command: usr/bin/gnome-sudoku
     plugs:
-      - desktop
-      - desktop-legacy
-      - gsettings
-      - pulseaudio
-      - unity7
-      - wayland
+      - audio-playback
     desktop: usr/share/applications/org.gnome.Sudoku.desktop
-    environment:
-      GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
 
 parts:
-  desktop-gnome-platform:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: gtk
-    plugin: make
-    make-parameters: ["FLAVOR=gtk3"]
-    build-packages:
-      - libgtk-3-dev
-    override-build: |
-      snapcraftctl build
-      mkdir -pv $SNAPCRAFT_PART_INSTALL/gnome-platform
   gnome-sudoku:
-    after: [desktop-gnome-platform]
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
-    source-branch: gnome-3-36
+    source-tag: '42.0'
     plugin: meson
     meson-parameters: [--prefix=/usr]
     organize:
       snap/gnome-sudoku/current/usr: usr
     build-packages:
-      - desktop-file-utils
-      - gettext
-      - gnome-common
-      - appstream-util
-      - intltool
-      - libgee-0.8-dev
-      - libjson-glib-dev
-      - libglib2.0-dev
-      - libgtk-3-dev
       - libqqwing-dev
-      - valac
-      - yelp-tools
     override-pull: |
       snapcraftctl pull
       snapcraftctl set-version $(git describe --tags --abbrev=10)
@@ -101,7 +56,5 @@ parts:
     plugin: nil
     stage-packages:
       - libqqwing2v5
-      - libgee-0.8-2
     prime:
       - "usr/lib/*/libqqwing*"
-      - "usr/lib/*/libgee*"
