@@ -48,7 +48,6 @@ parts:
       - libqqwing-dev
     override-pull: |
       craftctl default
-      craftctl set version=$(git describe --tags --abbrev=10)
       sed -i.bak -e 's|help_media,|help_media, symlink_media: false,|g' help/meson.build
 
   # workaround snapcraft trying to outsmart us by copying ldd listed libraries
