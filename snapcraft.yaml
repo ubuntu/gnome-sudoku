@@ -43,7 +43,7 @@ parts:
 #     no-9x-revisions: true
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
-    source-tag: '43.1'
+    source-tag: '45.0'
     source-depth: 1
     plugin: meson
     parse-info: [usr/share/metainfo/org.gnome.Sudoku.appdata.xml]
