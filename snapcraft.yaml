@@ -49,6 +49,7 @@ parts:
     meson-parameters:
       - --prefix=/usr
     build-packages:
+      - blueprint-compiler
       - libqqwing-dev
     override-pull: |
       craftctl default
