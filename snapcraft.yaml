@@ -46,8 +46,9 @@ parts:
     meson-parameters:
       - --prefix=/usr
     build-packages:
-      - blueprint-compiler
       - libqqwing-dev
+    build-snaps:
+      - blueprint-compiler
     override-pull: |
       craftctl default
       sed -i.bak -e 's|help_media,|help_media, symlink_media: false,|g' help/meson.build
