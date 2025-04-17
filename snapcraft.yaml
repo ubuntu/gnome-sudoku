@@ -37,12 +37,9 @@ apps:
 
 parts:
   gnome-sudoku:
-# ext:updatesnap
-#   version-format:
-#     lower-than: '48'
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
-    source-tag: '47.3'
+    source-tag: '48.1'
     source-depth: 1
     plugin: meson
     parse-info: [usr/share/metainfo/org.gnome.Sudoku.metainfo.xml]
