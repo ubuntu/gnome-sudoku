@@ -37,10 +37,6 @@ apps:
 
 parts:
   gnome-sudoku:
-# ext:updatesnap
-#   version-format:
-#     lower-than: '47'
-#     no-9x-revisions: true
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
     source-tag: '46.6'
