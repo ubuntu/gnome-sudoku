@@ -45,7 +45,7 @@ parts:
     source-tag: '47.3'
     source-depth: 1
     plugin: meson
-    parse-info: [usr/share/metainfo/org.gnome.Sudoku.appdata.xml]
+    parse-info: [usr/share/metainfo/org.gnome.Sudoku.metainfo.xml]
     meson-parameters:
       - --prefix=/usr
     build-packages:
