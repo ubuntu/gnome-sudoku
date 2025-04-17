@@ -36,7 +36,17 @@ apps:
     desktop: usr/share/applications/org.gnome.Sudoku.desktop
 
 parts:
+  blueprint-compiler:
+    source-depth: 1
+    source: https://gitlab.gnome.org/jwestman/blueprint-compiler.git
+    source-tag: 'v0.16.0'
+    plugin: meson
+    meson-parameters:
+      - --prefix=/usr
+    override-prime: ''
+
   gnome-sudoku:
+    after: [blueprint-compiler]
     source: https://gitlab.gnome.org/GNOME/gnome-sudoku.git
     source-type: git
     source-tag: '48.1'
@@ -45,8 +55,9 @@ parts:
     parse-info: [usr/share/metainfo/org.gnome.Sudoku.metainfo.xml]
     meson-parameters:
       - --prefix=/usr
+    build-environment:
+      - PYTHONPATH: $CRAFT_STAGE/usr/lib/python3/dist-packages:$PYTHONPATH
     build-packages:
-      - blueprint-compiler
       - libqqwing-dev
     override-pull: |
       craftctl default
