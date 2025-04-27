@@ -31,8 +31,6 @@ apps:
   gnome-sudoku:
     extensions: [ gnome ]
     command: usr/bin/gnome-sudoku
-    plugs:
-      - audio-playback
     desktop: usr/share/applications/org.gnome.Sudoku.desktop
 
 parts:
